@@ -2,13 +2,11 @@ function buildMetadata(sample) {
 
   const meta = d3.select("#sample-metadata")
   meta.html("")
-  let s = d3.json(`/samples/${sample}`).then((data) => {
-    console.log(data)
-    Object.entries(data).forEach (
-      ([key, value]) => meta.append("p").text(`${key}: ${value}`)
-    )
-  }
 
+  let s = d3.json(`/metadata/${sample}`).then((data) => {
+    console.log(data)
+    Object.entries(data).forEach(([key, value]) => { meta.append("p").text(`${key.toLowerCase()}: ${value}`)})
+  })
 
   // Use `d3.json` to fetch the metadata for a sample
     // Use d3 to select the panel with id of `#sample-metadata`
@@ -36,7 +34,6 @@ function buildCharts(sample) {
 
 function init() {
   // Grab a reference to the dropdown select element
-  console.log('why')
   var selector = d3.select("#selDataset");
 
   // Use the list of sample names to populate the select options
@@ -63,6 +60,5 @@ function optionChanged(newSample) {
 }
 
 
-console.log('does this work how i think it does')
 // Initialize the dashboard
 init();
