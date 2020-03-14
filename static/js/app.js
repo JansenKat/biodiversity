@@ -13,11 +13,9 @@ function buildMetadata(sample) {
 
 function buildCharts(sample) {
 
-  // @TODO: Use `d3.json` to fetch the sample data for the plots
-
   let s = d3.json(`/samples/${sample}`).then((data) => {
 
-    //Sort the data to grab top 10
+    //Sort the data to grab top 10 for Pie Chart
     let dataObj = data.otu_ids.map((e, i) => [e,data.otu_labels[i],data.sample_values[i]])
     dataObj.sort((a,b) =>  b[2] - a[2])
     let topData = dataObj.slice(0,10)
@@ -69,12 +67,6 @@ function buildCharts(sample) {
     Plotly.newPlot('bubble', bubbleData, bubbleLayout)
     
   })
-  
-    // @TODO: Build a Bubble Chart using the sample data
-
-    // @TODO: Build a Pie Chart
-    // HINT: You will need to use slice() to grab the top 10 sample_values,ß
-    // otu_ids, and labels (10 each).
 }
 
 function init() {
