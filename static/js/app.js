@@ -14,8 +14,6 @@ function buildMetadata(sample) {
 function buildCharts(sample) {
 
   // @TODO: Use `d3.json` to fetch the sample data for the plots
-  const pieChart = d3.select("#pie")
-  // pieChart.html("")
 
   let s = d3.json(`/samples/${sample}`).then((data) => {
 
@@ -36,15 +34,39 @@ function buildCharts(sample) {
       type: 'pie'
     }];
     
-    var layout = {
+    var pieLayout = {
       height: 500,
       width: 500
     };
     
-    Plotly.newPlot("pie", pieData, layout);
+    Plotly.newPlot("pie", pieData, pieLayout)
 
     //Make Bubble Chart
-
+    var bubbleTrace = {
+      x: data.otu_ids,
+      y: data.sample_values,
+      text: data.otu_labels,
+      mode: 'markers',
+      marker: {
+        size: data.sample_values,
+        color: data.otu_ids
+      }
+    }
+    
+    var bubbleData = [bubbleTrace]
+    
+    var bubbleLayout = {
+      showlegend: false,
+      height: 600,
+      width: 1500,
+      xaxis: {
+        title: {
+          text: 'OTU ID'
+        }
+      }
+    }
+    
+    Plotly.newPlot('bubble', bubbleData, bubbleLayout)
     
   })
   
