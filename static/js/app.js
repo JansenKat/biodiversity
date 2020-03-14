@@ -58,7 +58,7 @@ function buildCharts(sample) {
     var bubbleLayout = {
       showlegend: false,
       height: 600,
-      width: 1500,
+      width: 1400,
       xaxis: {
         title: {
           text: 'OTU ID'
